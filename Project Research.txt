@@ -1,0 +1,52 @@
+-> Project Goal Description: Building a DW for a Hybrid SOC that can be managed by a small team or single employee.
+In order to acheive this I found I could use Gliffy, Excel, Power BI and Azure Sentinel to develop a SEIM Dashboard
+and Data Pipeline to offer SOC as a service on a Hybrid Cloud. Data Connectors offer a means to do so.
+
+-> Architecture: [Lambda] 0) Data Files -> 1) Power Bi
+				     	-> 2) Sentinel
+
+-> Tables:
+
+busiess dimension
+	Customers -
+	Employees -
+	Partners - 
+
+security logs dimension
+	Blocklist - 
+	Whitelist - 
+	Login Attempts - 
+	Open Incidents (Alerts) - 
+
+	"Normal" Training Data (User & Entity Behavior Analytics [UEBA] AKA Logs)
+	--> can be gathered in Azure Sentinel by deploying an Agent to a device on its network
+	Live Agent Logs Analytics
+
+Incident Response dimension:	
+	Playbooks -
+	Closed Incidents - 
+	MTRE ATT&CK - 
+
+	APTs
+	Malware DB
+
+-> Business Rules [can be applied as Analytics Rules (Sentinel Analytics)]:
+
+0. Customer Submits Request for Service, Billing information is confirmed; Automated ticket is generated
+
+1. Auto-Assign Customer-Related Incidents to the analyst on staff. If more than one, assign severity to seniority.
+(Mild/Low Risk to Lvl 1 Analyst, Medium to Lvl 2, High to Lvl 3 (or highest ranking analyst on staff)).
+
+2. On assignment, send alert to the appropriate analyst (IF login attempt, join login_attempt table, else join playbooks & ResolvedIncidents
+
+3. Load known threat intel via custom logs; configure firewall; plug in connecter (Ex: Azure Firewall, Palo Alto)
+
+4. Automated Incident Response can be acheived via creation & deployment of Playbooks
+
+5. If need be, conduct a manual investigation; if possible create deployment playbook to automate solution
+
+6. For protected servers blocked from internet use: Use OMS Gateway to access
+
+7. Once incident is resolved, mark as such; auto-suspend billing and send email alert to customer.
+
+
